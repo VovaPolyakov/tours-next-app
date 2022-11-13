@@ -1,7 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Link from 'next/link'
+import { useState } from 'react'
 
 const Home: NextPage = () => {
+  const [location, setLocation] = useState('')
   return (
     <div>
       <Head>
@@ -19,8 +22,8 @@ const Home: NextPage = () => {
         <div className="flex items-center justify-center pb-6 md:py-0 md:w-1/2">
           <form>
             <div className="flex flex-col p-1.5 overflow-hidden border rounded-lg dark:border-gray-600 lg:flex-row dark:focus-within:border-blue-300 focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
-              <input className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none dark:bg-gray-800 dark:placeholder-gray-400 focus:placeholder-transparent dark:focus:placeholder-transparent" type="text" name="tours" placeholder="Enter your country" aria-label="Enter your country"></input>
-              <button className="px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">search</button>
+              <input onChange={(e) => {setLocation(e.currentTarget.value)}} className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none dark:bg-gray-800 dark:placeholder-gray-400 focus:placeholder-transparent dark:focus:placeholder-transparent" type="text" name="tours" placeholder="Enter your country" aria-label="Enter your country"></input>
+              <Link href={`/found?where=${location}`}><button className="px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">search</button></Link>
             </div>
           </form>
         </div>

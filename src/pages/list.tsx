@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import prismaClient from '../../prisma/client'
 import { Tours } from '@prisma/client'
@@ -15,6 +15,7 @@ export async function getServerSideProps() {
       props: {list},
     }
 }
+
 
 const Page: NextPage<{list:Tours[]}> = ({list}) => {
   return (
