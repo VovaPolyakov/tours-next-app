@@ -1,32 +1,28 @@
 import { Tours } from '@prisma/client'
-import type { NextPage } from 'next'
+import type { InferGetServerSidePropsType, NextPage } from 'next'
 import prisma from '../../prisma/client'
 import Head from 'next/head'
-import { GetServerSideProps } from 'next'
+import { NextPageContext} from 'next'
 
-export const getServerSideProps: GetServerSideProps<PagesProps> = async (context) => {
+async function  getServerSideProps(context: NextPageContext){
   const name = Array.isArray(context.query?.where)
-  
   ? context.query?.where.pop() : context.query?.where
-  let data = await prisma.tours.findMany({
-      where:{name: name || undefined}
+  const x = await prisma.tours.findMany({
+      where:{name: name}
+      
   })
-  data = data.map(({id,name,time}) => ({
+  const data = x.map(({id,name,time}) => ({
     name,
     id,
-    time: time.toLocaleDateString()
+    time: time.toLocaleDateString(),
   }))
   return {
     props: {data},
   }
 }
 
-type PagesProps = {
-  data:Tours[]
-}
 
-
-const Pages: NextPage<PagesProps> = ({data}) => {
+const Page: NextPage <InferGetServerSidePropsType<typeof getServerSideProps>>  = ({data}) => {
   return (
     <div>
         <Head>
@@ -44,4 +40,4 @@ const Pages: NextPage<PagesProps> = ({data}) => {
   )
 }
 
-export default Pages
+export default Page
