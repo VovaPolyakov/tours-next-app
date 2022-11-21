@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import prismaClient from '../../prisma/client'
 import { Tours } from '@prisma/client'
-import List from './Tours'
+import ListOfTours from '../components/ListOfTours'
 
 
 
@@ -30,7 +30,7 @@ const Page: NextPage<{list:Tours[]}> = ({list}) => {
             {list.map(item => <div key={item.id} className='pb-2'><li className='text-white border-2 rounded-lg border-slate-700 p-5' key={item.id}>ID: {item.id}, Name: {item.name}, DateTime: {item.time.toString()}</li></div>)}
         </ul> */}
         <ul>
-          <List items={list}/>
+        <ListOfTours tours={list}/>
         </ul>
       </div>
     </div>
